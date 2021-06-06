@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineLibWeb.Data;
 
 namespace OnlineLibWeb.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210606141605_Create-Document-Config-Many-Many-Category")]
+    partial class CreateDocumentConfigManyManyCategory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -262,26 +264,6 @@ namespace OnlineLibWeb.Data.Migrations
                     b.ToTable("Categories_Documents");
                 });
 
-            modelBuilder.Entity("OnlineLibWeb.Models.Chapter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DocumentId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DocumentId");
-
-                    b.ToTable("Chapters");
-                });
-
             modelBuilder.Entity("OnlineLibWeb.Models.Document", b =>
                 {
                     b.Property<int>("Id")
@@ -369,17 +351,6 @@ namespace OnlineLibWeb.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Document");
-                });
-
-            modelBuilder.Entity("OnlineLibWeb.Models.Chapter", b =>
-                {
-                    b.HasOne("OnlineLibWeb.Models.Document", "Document")
-                        .WithMany()
-                        .HasForeignKey("DocumentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("Document");
                 });
